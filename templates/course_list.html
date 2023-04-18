@@ -1,0 +1,73 @@
+<!-- The jinja below tells the page to be informed through the base.html page, which is transfering data
+between app.py -->
+
+{% extends 'base.html' %}
+
+{% block title %}Happy Buddy's Pet Training{% endblock %}
+
+{% block content %}
+<p class="mt-5">&nbsp;</p>
+
+        </div>
+
+<!-- Title and styling -->
+<br><br>
+<h1 class="mt-5" style="position:relative; left: 70px; top: 10px;">Happy Buddy Pet Training Courses</h1><br><br>
+
+<!-- Below is the table formatting used for the courses via bootstrap. The thead section contains the headings
+for all the course data dictionaries. Below in the body contains the data. The first data point, references
+the "Name" attribute. It searches in app.py for the course and finds the variable course in the course_list
+function. It then renders the name of each individual dictionary. The jinja for loop completes the other
+data for each item. Each row references the correct dict entry via jinja and refers back to the
+functions to render the data. -->
+
+<div class="">
+<table class="table table-bordered" style="width: 70%; margin-left:auto; margin-right:auto">  
+<thead>
+    <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Pet Type</th>
+        <th scope="col">Start Date</th>
+        <th scope="col">Course Length</th>
+        <th scope="col">Time</th>
+    </tr>
+</thead>
+<tbody>
+    {% for course in courses %}     
+
+
+    <tr>
+       <th class= "table-info" scope="row">
+        <a href="{{url_for('course', course_id=course['course_id'])}}"> {{course['course_name']}} </a>
+            </th>
+
+       <th scope="row">
+           {{course['pet_type']}}
+            </th>
+            
+
+        <th class= "table-info" scope="row">
+            {{course['start_date']}}
+            </th>
+            
+        <th scope="row">
+            {{course['course_length']}} Weeks
+            </th>
+    
+        <th class= "table-info" scope="row">
+            {{course['start_time']}}
+            </th>
+        </tr> 
+
+    {% endfor %}
+    </tbody>
+</table>  
+</div>
+ 
+<!-- This button redirects you to the add_course page which allows the user to create a 
+new course that will be stored in mysql using add_course function in database.py.  -->
+
+<br><br><br><a class="btn btn-primary" style="position:relative; left:106px; top:-48px;" href="{{ url_for('new_course') }}" role="button">Create a Course</a>
+    </div>
+</div>
+{% endblock %}

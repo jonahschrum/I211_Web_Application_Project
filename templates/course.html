@@ -1,0 +1,57 @@
+<!-- The jinja below tells the page to be informed through the base.html page, which is transfering data
+between app.py -->
+
+{% extends 'base.html' %}
+
+{% block title %} About {{ course['course_name'] }} {% endblock %}
+
+{% block content %}
+<br><br><br><br><br><br><br>
+
+<!-- Course Name -->
+<p class="h1"><b>{{course['course_name']}}</b></p>
+
+<br>
+
+<!-- The following is a bootstrap container and edited with simple css. The border is edited to be
+dark blue, curved, and padded to make the data look pretty. The first "row" div class 
+is for the title of all the information, and is bolded in paragraph format. The second "row"
+div class is what contains the actual data from the dictionary. Jinja is used to transfer
+each dictionary from the "course" variable in the courses/<course_id>/ approute fromp app.py.
+Each variable is receieved via using course[and then retrieving the right dictionary entry]. -->
+
+<div class="container" style="border-width:5px; border-style:solid; border-color:#1b419a; height: 70%; width: 100%; position: relative; right: -10; top: 0; padding: 3em; border-radius: 30px;">
+    <div class="row">
+      <div class="col">
+        <p class="fs-4"><b>Course Type:</b></p>
+        <p class="fs-4"style= "position:relative; top:-10px;"><b>Course Level:</b></p>
+        <p class="fs-4"style= "position:relative; top:-20px;"><b>Start Date:</b></p>
+        <p class="fs-4"style= "position:relative; top:-30px;"><b>Start Time:</b></p>
+        <p class="fs-4"style= "position:relative; top:-40px;"><b>Session Duration:</b></p>
+        <p class="fs-4"style= "position:relative; top:-50px;"><b>Course Length:</b></p>
+        <p class="fs-4"style= "position:relative; top:-60px;"><b>Trainer:</b></p>
+        <p class="fs-4"style= "position:relative; top:-70px;"><b>Description:</b></p>
+      </div>
+      <div class="col">
+        <p class="fs-4">{{course['pet_type']}} Course </p>
+        <p class="fs-4" style= "position:relative; top:-12px;">{{course['course_level']}}</h1>
+        <p class="fs-4" style= "position:relative; top:-20px;"> {{course['start_date']}}</p>
+        <p class="fs-4" style= "position:relative; top:-30px;">{{course['start_time']}}</h1>
+        <p class="fs-4" style= "position:relative; top:-40px;">{{course['course_duration']}} minutes</p> 
+        <p class="fs-4" style= "position:relative; top:-50px;"> {{course['course_length']}} weeks</p>
+        <p class="fs-4" style= "position:relative; top:-60px;">{{course['trainer']}}</p>
+        <p class="fs-4" style= "position:relative; top:-70px;">{{course['description']}}</p>
+      
+<!-- These buttons redirect user to either the edit_course page (to edit a previous added course) or
+bring the user back to the course_list screen upon the deletion of a course). The add_attendee redirects
+to attendee.html and applies the current course_id. -->
+
+      </div>
+      <a class="btn btn-secondary" href="{{ url_for('edit_course', course_id=course['course_id']) }}" role="button">Edit Course</a>&nbsp;&nbsp;
+      <a class="btn btn-danger" href="{{ url_for('course_list') }}" role="button">Delete Course</a>&nbsp;&nbsp;
+  
+      <a class="btn btn-primary" href="{{ url_for('add_attendee', course_id=course['course_id']) }}" role="button">Add Attendee</a>
+    </div>
+  
+{% endblock %}
+

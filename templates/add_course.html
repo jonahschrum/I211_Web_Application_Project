@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {% if course_id %}
+        Edit a Course
+    {% else %}
+        Create a Course
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+
+
+<!-- This jinja statement determines whether the data being passed in has a course_id
+or not. If so, the title changes to Edit Course, and parameters are filled in with
+the data found in the nested list, as seen below. Then, if statements are used in
+the dropdown selections to determine the correct prior option.  -->
+
+
+{% if course %}
+    {% set course_name = course['course_name'] %}
+    {% set pet_type = course['pet_type'] %}
+    {% set course_level = course['course_level'] %}
+    {% set start_date = course['start_date'] %}
+    {% set start_time = course['start_time'] %}
+    {% set course_duration = course['course_duration'] %}
+    {% set course_length = course['course_length'] %}
+    {% set trainer = course['trainer'] %}
+    {% set description = course['description'] %}  
+<br><br><br><br><br><br><br><h2>Edit course</h2> <br><br>
+{% else %}
+    {% set course_name = '' %}
+    {% set pet_type = '' %} 
+    {% set course_level = '' %}
+    {% set start_date = '' %}
+    {% set start_time = '' %}
+    {% set duration = '' %}
+    {% set course_length = '' %}
+    {% set trainer = '' %}
+    {% set description = '' %}
+    <br><br><br><br><br><br><br><h2>Create course</h2> <br><br>
+{% endif %}
+
+
+
+<!-- Form allows the user to call this information from app.py using 
+the POST method. The various divs call for information the user inputs, 
+often throughtext type. For items that only have a few options, like 
+course level,<select> and <option> are used to create a dropdown menu 
+(I also used bootstrap's dropdown class to style it). This is where I 
+added jinja if statements that kind of work to ensure that edited pages 
+maintain the correct dropdowns. It kind of worked, so I also had to make the 
+valuesthe same as the dropdown text for the jinja statements that were acting 
+funky. The start date uses date type, while start time uses the time data type. 
+All form inputs are required except the description, which I kept as optional. 
+I used bootstrap to format all of these, which general consists of form-outline 
+and form-control which make the boxes consistent and wide across the screen.
+I also used bootstrap to format the buttons at the bottom, which through base.html 
+to back to the app.py file.-->
+
+
+
+<form method="POST" name="create">
+
+    <div class="form-outline">
+        <label class="form-label" for="Name">Course Name:</label>
+        <input class="form-control form-control" type="text" id="Name" name="Name" value = "{{course_name}}" placeholder="" required>
+    </div>
+    <br>
+    <div class="dropdown">
+        <label for="Pet_Type">Pet Type:</label>
+        <select class="form-select" id="Pet_Type" name="Pet_Type" required>
+            <option selected value= "{{pet_type}}"></option>
+    
+            <option {% if pet_type == "Dog" %}selected{% endif %} value="Dog" >Dog</option>
+            <option {% if pet_type == "Cat" %}selected{% endif %} value= "Cat"> Cat</option>
+            <option {% if pet_type == "Hamster" %}selected{% endif %}  value="Hamster">Hamster</option>
+            <option {% if pet_type == "Ferret" %}selected{% endif %} value="Ferret">Ferret</option> 
+            <option {% if pet_type == "Parrot" %}selected{% endif %} value="Parrot" >Parrot</option>
+        </select>
+    </div>
+    <br>
+    <div class="dropdown">
+        <label for="Level">Course Level:</label>
+        <select class="form-select" id="Level" name="Level" required>
+            <option selected></option>
+            <option {% if course_level == "Beginner" %}selected{% endif %} value= "Beginner">Beginner</option>
+            <option {% if course_level == "Intermediate" %} selected{% endif %} value= "Intermediate"> Intermediate</option>
+            <option {% if course_level == "Advanced" %} selected{% endif %} value= "Advanced">Advanced</option>
+        </select>
+    </div>
+    <br>
+    <div class="form-outline">
+        <label for="Start_Date">Start Date:</label>
+        <input class="form-control form-control" type="date" id="Start_Date" name="Start_Date" value = "{{start_date}}" required>
+    </div>
+    <br>
+    <div class="form-outline">
+        <label for="Start_Time">Start Time:</label>
+        <input class="form-control" type="time" id="Start_Time" name="Start_Time" value = "{{start_time}}" required>
+    </div>
+    <br>
+    <div class="dropdown">
+        <label for="Course_Duration">Course Duration (Minutes):</label>
+        <select class="form-select" id="Course_Duration" name="Course_Duration" required>
+            <option selected></option>
+            <option {% if course_duration == "45" %} selected{% endif %} value= "45"> 45 </option>
+            <option {% if course_duration == "60" %} selected{% endif %} value= "60"> 60</option>
+            <option {% if course_duration == "90" %} selected{% endif %} value= "90"> 90</option>
+        </select>
+    </div>
+    <br>
+    <div class="dropdown">
+        <label for="Course_Length">Course Length (Weeks):</label>
+        <select class="form-select" aria-label="Choose..." id="Course_Length" name="Course_Length"  required>
+            <option selected></option>
+            <option {% if course_length == "4" %}selected{% endif %} value= "4"> 4</option>
+            <option {% if course_length == "6" %}selected{% endif %} value= "6"> 6 </option>
+            <option {% if course_length == "8" %}selected{% endif %} value= "8"> 8</option>
+        </select>
+    </div>
+    <br>
+    <div class="form-outline">
+        <label class="form-label" for="Trainer">Trainer:</label>
+        <input class="form-control form-control"type="text" id="Trainer" name="Trainer" value = "{{trainer}}" required>
+    </div>
+    <br>
+    <div class="form-outline">
+        <label class="form-label" for="Description">Description:</label><br>
+        <textarea class="form-control form-control-lg" type="text" id="Description" name="Description" rows="5" cols="33" value="{{description}}"></textarea>
+    </div>
+<br><br>
+    <button type="submit" class="btn btn-info">Add Course</button>&nbsp;&nbsp;
+    <button type="reset" class="btn btn-warning">Reset</button>
+</form>
+{% endblock %}
+

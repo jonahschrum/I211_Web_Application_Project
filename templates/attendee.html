@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<!-- This pages uses the post method to input data that is then taken back
+through app.py in the add_attendee function. All the data is stored as 
+text except the date of birth. -->
+
+<form method="POST" name="create">
+
+    <div class="form-outline">
+        <label class="form-label" for="f_name">First Name:</label>
+        <input class="form-control form-control" type="text" id="f_name" name="f_name" value = "{{ f_name }}" placeholder="" required>
+    </div>
+    <br>
+    <div class="form-outline">
+        <label class="form-label" for="l_name">Last Name:</label>
+        <input class="form-control form-control" type="text" id="l_name" name="l_name" value = "{{ l_name }}" placeholder="" required>
+    </div>
+    <br>
+    <div class="form-outline">
+        <label class="form-label" for="phone_number">Phone Number:</label>
+        <input class="form-control form-control" type="text" id="phone_number" name="phone_number" value = "{{ phone_number }}" placeholder="" required>
+    </div>
+    <br>
+    <div class="form-outline">
+        <label for="email">E-mail:</label>
+        <input class="form-control form-control" type="text" id="email" name="email" value = "{{ email }}" required>
+    </div>
+    <br>
+    <div class="form-outline">
+        <label for="date_of_birth">Date of Birth:</label>
+        <input class="form-control form-control" type="date" id="date_of_birth" name="date_of_birth" value = "{{ date_of_birth }}" required>
+    </div>
+    <br>
+    <div class="form-outline">
+        <label for="comment">Comment:</label>
+        <input class="form-control form-control" type="date" id="comment" name="comment" value = "{{ comment }}">
+    </div>
+    <br><br>
+    <button type="submit" class="btn btn-info">Add Attendee</button>&nbsp;&nbsp;
+    <button type="reset" class="btn btn-warning">Reset</button>
+
+    {% endblock %}

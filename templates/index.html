@@ -1,0 +1,37 @@
+<!-- The jinja below tells the page to be informed through the base.html page, which is transfering data
+between app.py -->
+
+{% extends 'base.html' %}
+
+{% block title %}Happy Buddy's Pet Training{% endblock %}
+
+{% block content %}
+<p class="mt-5">&nbsp;</p>
+
+<!-- Dog image logo, which is styled and referenced from the static/images folder -->
+<br><br>
+<div>
+   <div style="position:relative; top:20px;">
+    <div class="row justify-content-start">
+        <div class="col">
+            <figure>
+                <img class="img-fluid" style="height: 80px;" src="static/images/dog.png">
+              </figure>
+        </div>
+
+        <!-- Title and description, formatted for home page -->
+        </div>
+        <h1 class="mt-5" style="position:relative; left: 125px; top:-127px;">Happy Buddy's Pet Training</h1></div>
+
+        <p class="fw-normal" style="position:relative; top:-50px;">Happy Buddy is a Pet Training Company that offers a wide variety of courses to help your pet thrive to their fullest. Our courses offer the highest level of expertise with some of the best trainers in the business. Check out our course list and feel free to check back, as we often have new courses throughout the year! Our courses are designed for dogs, cats, hamster, ferrets, and parrots. Check out our Courses in the 'Courses' tab.</p>
+
+        <br>
+        <!-- Button that links to the course list via jinja url which connects to app.py and moves to course_list url page -->
+        <a class="btn btn-primary" href="{{ url_for('course_list') }}" role="button">Current Courses</a> <br><br><br><br><br><br><br>
+    {% for course in added_courses %}
+
+<!-- jinja endblock -->
+    {% endfor %}
+    </div>
+</div>
+{% endblock %}
